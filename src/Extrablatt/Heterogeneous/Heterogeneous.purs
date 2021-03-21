@@ -1,4 +1,4 @@
-module Heterogeneous.Extra where
+module Extrablatt.Heterogeneous.Heterogeneous where
 
 import Prelude
 import Data.Symbol (class IsSymbol)

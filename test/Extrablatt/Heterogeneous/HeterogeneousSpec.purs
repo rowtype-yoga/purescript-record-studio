@@ -1,10 +1,10 @@
-module Heterogeneous.ExtraSpec where
+module Extrablatt.Heterogeneous.HeterogeneousSpec where
 
 import Prelude
 
 import Data.Either (Either(..), hush)
 import Data.Maybe (Maybe(..))
-import Heterogeneous.Extra (hmapRec, hmapKRec, hsequenceRec)
+import Extrablatt.Heterogeneous.Heterogeneous (hmapRec, hmapKRec, hsequenceRec)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 
@@ -28,7 +28,7 @@ type MapKOutput
 
 spec :: Spec Unit
 spec =
-  describe "Heterogeneous.Extra" do
+  describe "Extrablatt.Heterogeneous" do
     describe "hsequenceRec" do
       it "should recursively sequence a valid record" do
         let
