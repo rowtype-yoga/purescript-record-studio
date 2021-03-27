@@ -1,4 +1,4 @@
-{ name = "purescript-heterogeneous-extrablatt"
+{ name = "heterogeneous-extrablatt"
 , dependencies =
   [ "console"
   , "effect"
