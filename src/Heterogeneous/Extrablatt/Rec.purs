@@ -1,4 +1,4 @@
-module Extrablatt.Heterogeneous.Heterogeneous where
+module Heterogeneous.Extrablatt.Rec where
 
 import Prelude
 import Data.Symbol (class IsSymbol)
@@ -156,6 +156,7 @@ hmapRec f =
     <<< hfoldlWithIndex (HMapRec f :: HMapRec a b) (identity :: Builder {} {})
 
 -- Helper for type inference
+data HMapKRec :: forall k. (k -> Type) -> (k -> Type) -> Type
 data HMapKRec f g
   = HMapKRec (f ~> g)
 

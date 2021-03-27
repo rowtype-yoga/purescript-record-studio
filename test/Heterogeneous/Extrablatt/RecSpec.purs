@@ -1,10 +1,10 @@
-module Extrablatt.Heterogeneous.HeterogeneousSpec where
+module Heterogeneous.Extrablatt.RecSpec where
 
 import Prelude
 
 import Data.Either (Either(..), hush)
 import Data.Maybe (Maybe(..))
-import Extrablatt.Heterogeneous.Heterogeneous (hmapRec, hmapKRec, hsequenceRec)
+import Heterogeneous.Extrablatt.Rec (hmapRec, hmapKRec, hsequenceRec)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 
@@ -28,7 +28,7 @@ type MapKOutput
 
 spec :: Spec Unit
 spec =
-  describe "Extrablatt.Heterogeneous" do
+  describe "Heterogeneous.Extrablatt.Rec" do
     describe "hsequenceRec" do
       it "should recursively sequence a valid record" do
         let
@@ -44,8 +44,8 @@ spec =
             , h: 10
             }
 
-          expected :: SequenceOutput
-          expected =
+          expected :: Maybe SequenceOutput
+          expected = Just 
             { a: 10
             , b: "hello"
             , c:
@@ -55,7 +55,7 @@ spec =
                 }
             , h: 10
             }
-        (hsequenceRec input) `shouldEqual` (Just expected)
+        (hsequenceRec input) `shouldEqual` expected
       it "should recursively sequence an invalid record" do
         let
           input :: SequenceInput
@@ -69,7 +69,10 @@ spec =
                 }
             , h: 10
             }
-        (hsequenceRec input) `shouldEqual` Nothing
+
+          expected :: Maybe SequenceOutput
+          expected = Nothing
+        (hsequenceRec input) `shouldEqual` expected
 
     describe "hmapRec" do
       it "should recursively map a function over a record" do
