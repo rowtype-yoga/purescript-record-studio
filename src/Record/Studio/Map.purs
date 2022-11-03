@@ -1,6 +1,5 @@
 module Record.Studio.Map where
 
-
 import Prelude
 import Data.Symbol (class IsSymbol)
 import Heterogeneous.Folding (class FoldingWithIndex, class FoldlRecord, class HFoldlWithIndex, hfoldlWithIndex)
@@ -11,11 +10,10 @@ import Record.Builder as Builder
 import Type.Proxy (Proxy)
 
 -- Helper for type inference
-data MapRecord a b
-  = MapRecord (a -> b)
+data MapRecord a b = MapRecord (a -> b)
 
 -- Matches if the type of the current field in the record is a and therefore needs to be mapped.
-instance mapRecord_1 ::
+instance
   ( IsSymbol sym
   , Row.Lacks sym rb
   , Row.Cons sym b rb rc
@@ -29,7 +27,7 @@ instance mapRecord_1 ::
   foldingWithIndex (MapRecord f) prop rin a = (rin >>> Builder.insert prop (f a))
 
 -- Matches if the type of the current field in the record is another record and therefore needs to be recursed.
-else instance mapRecord_2 ::
+else instance
   ( IsSymbol sym
   , Row.Lacks sym rb
   , RowToList x xRL
@@ -52,7 +50,7 @@ else instance mapRecord_2 ::
     fx = mapRecord f x
 
 -- Matches if the type of the current field in the record is any other type independent of mapping.
-else instance mapRecord_3 ::
+else instance
   ( IsSymbol sym
   , Row.Lacks sym rb
   , Row.Cons sym x rb rc
@@ -73,12 +71,12 @@ else instance mapRecord_3 ::
 -- | mapRecord  f { a : { b : 10, c : { d: 20, e : Just "hello" }}, f : 30 }
 -- | -- { a : { b : "11", c : { d: "21", e : Just "hello" }, f : "31" }
 -- | ```
-mapRecord ::
-  forall a b rin rout.
-  HFoldlWithIndex (MapRecord a b) (Builder {} {}) { | rin } (Builder {} { | rout }) =>
-  (a -> b) ->
-  { | rin } ->
-  { | rout }
+mapRecord
+  :: forall a b rin rout
+   . HFoldlWithIndex (MapRecord a b) (Builder {} {}) { | rin } (Builder {} { | rout })
+  => (a -> b)
+  -> { | rin }
+  -> { | rout }
 mapRecord f =
   (flip Builder.build {})
     <<< hfoldlWithIndex (MapRecord f :: MapRecord a b) (identity :: Builder {} {})

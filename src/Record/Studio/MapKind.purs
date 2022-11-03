@@ -11,11 +11,10 @@ import Type.Proxy (Proxy)
 
 -- Helper for type inference
 data MapRecordKind :: forall k. (k -> Type) -> (k -> Type) -> Type
-data MapRecordKind f g
-  = MapRecordKind (f ~> g)
+data MapRecordKind f g = MapRecordKind (f ~> g)
 
 -- Matches if the type of the current field in the record is f a and therefore needs to be naturally transformed.
-instance mapRecordKind_1 ::
+instance
   ( IsSymbol sym
   , Row.Lacks sym rb
   , Row.Cons sym (g a) rb rc
@@ -29,7 +28,7 @@ instance mapRecordKind_1 ::
   foldingWithIndex (MapRecordKind nt) prop rin fa = (rin >>> Builder.insert prop (nt fa))
 
 -- Matches if the type of the current field in the record is another record and therefore needs to be recursed.
-else instance mapRecordKind_2 ::
+else instance
   ( IsSymbol sym
   , Row.Lacks sym rb
   , RowToList x xRL
@@ -52,7 +51,7 @@ else instance mapRecordKind_2 ::
     fx = mapRecordKind nt x
 
 -- Matches if the type of the current field in the record is any other type independent of the natural transformation.
-else instance mapRecordKind_3 ::
+else instance
   ( IsSymbol sym
   , Row.Lacks sym rb
   , Row.Cons sym x rb rc
@@ -73,12 +72,12 @@ else instance mapRecordKind_3 ::
 -- | mapRecordKind { a : { b : { c : { d: Right 10, e : Left "hello" }, f : Right true }
 -- | -- Just { a : { b : { c : { d: Just 10, e : Nothing }, f : Just true }
 -- | ```
-mapRecordKind ::
-  forall f g rin rout.
-  HFoldlWithIndex (MapRecordKind f g) (Builder {} {}) { | rin } (Builder {} { | rout }) =>
-  (f ~> g) ->
-  { | rin } ->
-  { | rout }
+mapRecordKind
+  :: forall f g rin rout
+   . HFoldlWithIndex (MapRecordKind f g) (Builder {} {}) { | rin } (Builder {} { | rout })
+  => (f ~> g)
+  -> { | rin }
+  -> { | rout }
 mapRecordKind nt =
   (flip Builder.build {})
     <<< hfoldlWithIndex (MapRecordKind nt :: MapRecordKind f g) (identity :: Builder {} {})

@@ -15,7 +15,7 @@ import Type.Proxy (Proxy)
 data SequenceRecord (f :: Type -> Type) = SequenceRecord
 
 -- Matches if the type of the current field in the record is f a and therefore needs to be sequenced.
-instance sequenceRecord_1 ::
+instance
   ( Applicative f
   , IsSymbol sym
   , Row.Lacks sym rb
@@ -30,7 +30,7 @@ instance sequenceRecord_1 ::
   foldingWithIndex _ prop rin a = (>>>) <$> rin <*> (Builder.insert prop <$> a)
 
 -- Matches if the type of the current field in the record is another record and therefore needs to be recursed.
-else instance sequenceRecord_2 ::
+else instance
   ( Applicative f
   , IsSymbol sym
   , Row.Lacks sym rb
@@ -54,7 +54,7 @@ else instance sequenceRecord_2 ::
     fx = sequenceRecord x
 
 -- Matches if the type of the current field in the record is any other type independent of sequencing.
-else instance sequenceRecord_3 ::
+else instance
   ( Applicative f
   , IsSymbol sym
   , Row.Lacks sym rb
@@ -73,12 +73,12 @@ else instance sequenceRecord_3 ::
 -- | sequenceRecord { a : { b : { c : { d: Just 10, e : Just "hello" }, f : Just true }
 -- | -- Just { a : { b : { c : { d: 10, e : "hello" }, f : true }
 -- | ```
-sequenceRecord ::
-  forall f rin rout.
-  Applicative f =>
-  HFoldlWithIndex (SequenceRecord f) (f (Builder {} {})) { | rin } (f (Builder {} { | rout })) =>
-  { | rin } ->
-  f { | rout }
+sequenceRecord
+  :: forall f rin rout
+   . Applicative f
+  => HFoldlWithIndex (SequenceRecord f) (f (Builder {} {})) { | rin } (f (Builder {} { | rout }))
+  => { | rin }
+  -> f { | rout }
 sequenceRecord =
   map (flip Builder.build {})
     <<< hfoldlWithIndex (SequenceRecord :: SequenceRecord f) (pure identity :: f (Builder {} {}))
