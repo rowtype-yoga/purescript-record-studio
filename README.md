@@ -1,12 +1,59 @@
-# purescript-heterogeneous-extrablatt 📰
+# purescript-record-studio 📀📀📀
 
-Some additions of common use-cases when working with records and purescript-heterogeneous.
+You finally scored a record deal.
 
+## Usage guide
 
-## Usage guide 
+### Merge records with `//`
+Easily merge two records:
 
+```purescript
+{ a: 5, b: "B" } // { b: false, c: "c" }
+-- { a: 5, b: false, c: "c" }
+```
 
-### `hsequenceRec`
+This is similar to the `...` operator in ES6:
+
+PureScript:
+```purescript
+import Record.Studio ((//))
+rec1 = { a: 1 }
+rec2 = { b: 4, c: 8 }
+result = rec1 // rec2
+```
+
+JS:
+```js
+const rec1 = { a: 1 }
+const rec2 = { b: 4, c: 8 }
+const result = { ...rec1, ...rec2 }
+```
+
+### Shrink records with `shrink`
+Easily adjust a record with too many keys:
+```purescript
+import Record.Studio (shrink)
+-- We want to call this
+-- fn :: { a :: Int } -> Int
+
+-- We have this
+myRec :: { a :: Int, b :: String }
+myRec = { a: 4, b: "Hello!" }
+
+-- Use shrink!
+result = fn (shrink myRec)
+```
+
+### Get a record's keys at runtime with `keys`
+```purescript
+import Record.Studio (keys)
+
+theKeys :: Array String
+theKeys = keys { a: 3, b: "ooh" }
+-- ["a", "b"]
+```
+
+### `sequenceRecord`
 Recursively sequence a type constructor out of a record.
 
 ```purescript
@@ -34,12 +81,12 @@ let
         }
     , h: 10
     }
-(hsequenceRec input) `shouldEqual` expected
+(sequenceRecord input) `shouldEqual` expected
 ```
 
-### `hmapRec`
+### `mapRecord`
 
-Recursively map a function over a record. 
+Recursively map a function over a record.
 ```purescript
 let
     input :: MapInput
@@ -68,14 +115,14 @@ let
         }
     , i: "41"
     }
-(hmapRec f input) `shouldEqual` expected
+(mapRecord f input) `shouldEqual` expected
 ```
 
-### `hmapKRec`
+### `mapRecordKind`
 
 Recursively map a natural transformation over a record.
 
-```purescript 
+```purescript
  let
     input :: MapKInput
     input =
@@ -103,5 +150,9 @@ Recursively map a natural transformation over a record.
         }
     , i: Just 40
     }
-(hmapKRec nt input) `shouldEqual` expected
+(mapRecordKind nt input) `shouldEqual` expected
 ```
+
+## Licence
+This is a fork of [heterogeneous-extrablatt](https://github.com/sigma-andex/purescript-heterogeneous-extrablatt), which is licenced under MIT. See the [original licence](./LICENCES/heterogeneous-extrablatt.LICENCE). This work is similarly licenced under [MIT](./LICENCE).
+It includes part of [`purescript-record-extra`](https://github.com/justinwoo/purescript-record-extra) as an inline dependency, which is licenced under MIT, see [original licence](./LICENCES/record-extra.LICENCE).
