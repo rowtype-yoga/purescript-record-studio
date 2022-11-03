@@ -1,11 +1,11 @@
 {
-    "name": "purescript-heterogeneous-extrablatt",
+    "name": "purescript-record-studio",
     "license": [
         "MIT-0"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/sigma-andex/purescript-heterogeneous-extrablatt.git"
+        "url": "https://github.com/rowtype-yoga/purescript-record-studio.git"
     },
     "ignore": [
         "**/.*",
@@ -15,6 +15,7 @@
     ],
     "dependencies": {
         "purescript-heterogeneous": "^v0.6.0",
+        "purescript-lists": "^v7.0.0",
         "purescript-prelude": "^v6.0.0",
         "purescript-record": "^v4.0.0"
     }
