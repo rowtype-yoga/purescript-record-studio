@@ -10,5 +10,7 @@ in      conf
               , "spec-discovery"
               , "either"
               , "maybe"
+              , "foreign-object"
+              , "unsafe-coerce"
               ]
         }

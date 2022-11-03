@@ -1,9 +1,8 @@
-{ name = "heterogeneous-extrablatt"
-, dependencies =
-  [ "heterogeneous", "prelude", "record" ]
+{ name = "record-studio"
+, dependencies = [ "heterogeneous", "lists", "prelude", "record" ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs" ]
 , license = "MIT-0"
 , repository =
-    "https://github.com/sigma-andex/purescript-heterogeneous-extrablatt.git"
+    "https://github.com/rowtype-yoga/purescript-record-studio.git"
 }
