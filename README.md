@@ -4,6 +4,16 @@ You finally scored a record deal.
 
 ## Usage guide
 
+### Assert two records have the same keys with `SameKeys`
+
+```purescript
+-- An example of a function that requires `{|r1}` and `{|r2}` to have the same keys
+sameKeys :: forall r1 r2. SameKeys r1 r2 => {|r1} -> {|r2} -> Unit
+sameKeys _ _ = unit
+let _ = sameKeys { b: "hi", a: 4, c: 4 } { b: "hu", a: "ha" }
+-- Won't compile: The key "c" is missing from the second record
+```
+
 ### Merge records with `//`
 Easily merge two records:
 

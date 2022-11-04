@@ -1,5 +1,5 @@
 { name = "record-studio"
-, dependencies = [ "heterogeneous", "lists", "prelude", "record" ]
+, dependencies = [ "heterogeneous", "lists", "prelude", "record", "typelevel-prelude" ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs" ]
 , license = "MIT-0"
