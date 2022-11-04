@@ -17,6 +17,7 @@
         "purescript-heterogeneous": "^v0.6.0",
         "purescript-lists": "^v7.0.0",
         "purescript-prelude": "^v6.0.0",
-        "purescript-record": "^v4.0.0"
+        "purescript-record": "^v4.0.0",
+        "purescript-typelevel-prelude": "^v7.0.0"
     }
 }
