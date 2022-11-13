@@ -2,7 +2,7 @@ module SingletonRecordSpec where
 
 import Prelude
 
-import Record.Studio.SingletonRecord (key)
+import Record.Studio.SingletonRecord (key, value)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Type.Proxy (Proxy(..))
@@ -14,10 +14,11 @@ spec =
       let
         input = { a: 10 }
 
-        -- inputFails1 = key {}
-        -- ^ The record provided to `key` must have exactly one field
-        -- inputFails2 = key { a: 10, b: "a" }
-        -- ^ The record provided to `key` must have exactly one field
-        expected = Proxy :: Proxy "a"
+      -- | These should fail to compile with a helpful message
+      -- inputFails1 = key {}
+      -- inputFails2 = key { a: 10, b: "a" }
+      -- inputFails3 = value {}
+      -- inputFails4 = value { a: 10, b: "a" }
 
-      (key input) `shouldEqual` expected
+      (key input) `shouldEqual` (Proxy :: Proxy "a")
+      (value input) `shouldEqual` 10
