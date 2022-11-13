@@ -94,6 +94,14 @@ let
 (sequenceRecord input) `shouldEqual` expected
 ```
 
+### `mapUniformRecord`
+
+Recursively map a function over a record where all entries have the same value.
+This is often better at type inference than `mapRecord`
+```purescript
+  (mapUniformRecord (_ + 1) { a: 1, b: 2 }) `shouldEqual` { a: 2, b: 3}
+```
+
 ### `mapRecord`
 
 Recursively map a function over a record.
@@ -161,6 +169,14 @@ Recursively map a natural transformation over a record.
     , i: Just 40
     }
 (mapRecordKind nt input) `shouldEqual` expected
+```
+
+### `key` 
+
+Get the only field name of a Record with one field as a `Proxy`
+
+```purescript
+SingletonRecord.key { foo: unit } `shouldEqual` (Proxy :: Proxy "foo")
 ```
 
 ## Licence

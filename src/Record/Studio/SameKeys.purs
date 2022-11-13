@@ -1,6 +1,5 @@
 module Record.Studio.SameKeys (class SameKeys, class SameKeysRL) where
 
-
 import Data.Symbol (class IsSymbol)
 import Prim.Row (class Lacks)
 import Prim.RowList (class RowToList)
