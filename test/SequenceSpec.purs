@@ -2,9 +2,8 @@ module SequenceRecordSpec where
 
 import Prelude
 
-import Data.Either (Either(..), hush)
 import Data.Maybe (Maybe(..))
-import Record.Studio (mapRecord, mapRecordKind, sequenceRecord)
+import Record.Studio (sequenceRecord)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 

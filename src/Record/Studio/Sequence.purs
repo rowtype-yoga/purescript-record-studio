@@ -2,7 +2,6 @@ module Record.Studio.Sequence where
 
 import Prelude
 
-import Prelude
 import Data.Symbol (class IsSymbol)
 import Heterogeneous.Folding (class FoldingWithIndex, class FoldlRecord, class HFoldlWithIndex, hfoldlWithIndex)
 import Prim.Row as Row
